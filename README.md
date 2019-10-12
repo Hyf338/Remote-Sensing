@@ -72,8 +72,9 @@ Keil|软件编程
 | 数组编号 | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
 
 ### 核心PID算法
+PID算法的详解已上传至CSDN。
+【欢迎关注】：https://me.csdn.net/weixin_42881419
 ````
-
 float PID_Cal(float Speed)
 {
 	pid.SetSpeed = Speed;
