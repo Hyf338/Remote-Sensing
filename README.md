@@ -67,4 +67,19 @@ Keil|软件编程
 | 说明 | 1-遥控、0-追踪 | AA | 55 | 2 | X_angle | Y_angle | 累加 |
 | 数组编号 | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
 
+### 算法PID算法
+````
 
+float PID_Cal(float Speed)
+{
+	pid.SetSpeed = Speed;
+	pid.Err = pid.SetSpeed - pid.ActualSpeed;//误差的计算，即比例控制
+	pid.Integral += pid.Err;//误差相加，即积分控制
+	pid.Voltage = pid.Kp * pid.Err + pid.Ki * pid.Integral + pid.Kd *
+		(pid.Err - pid.Err_last);//根据位置型PID控制的公式
+	pid.Err_last = pid.Err;
+	pid.ActualSpeed = pid.Voltage * 1.0; //转换
+	return pid.ActualSpeed;//PID控制后的实际输出值
+}
+
+````
