@@ -1,7 +1,70 @@
 # Remote-Sensing
 Base on mpu6050，designed a car with remote sense.
 
+<p align="center">
+  <a href="https://img.shields.io/badge/language-C-brigreen.svg?style=flat-square"><img src="https://img.shields.io/badge/language-C-brigreen.svg?style=flat-square" alt="C"></a>
+</p>
 
-- 目录说明
-|---- hardware:【电路设计】      
+
+
+## 简介
+2019集大电协 手势遥感遥控车
+
+工具     | 描述
+-------- | -----
+Altium Design|PCB设计
+Keil|软件编程
+123D Design|3D软件
+
+
+## 目录说明
+````
++——Marine craft
+|---- 3D model: 【设计文档】
+|----+ hardware:【电路设计】  
+|       ├──STM32_Controller 【车载主控板】
+|       ├──Remote control 【遥控器】
 |---+ software:【软件设计】
+|       ├──Remote vehicle【遥感车程序】
+|       ├──Remote control【遥控器程序】
+````
+
+
+## Hardware
+- 主控与外设描述
+
+硬件     | 描述
+-------- | -----
+芯片型号  |STM32F103
+串口  | ZIGBEE
+蓝牙  | HC-05
+陀螺仪  | MPU6050
+显示|oled
+
+- [x]  车载主控板
+
+![主控板](/Docs/Pictures/STM32-controller.png "主控板")
+
+
+- [x] 手持遥控器
+
+![手持遥控器](/Docs/Pictures/Remoted-Broad.png "手持遥控器")
+
+- [x] 手持遥控器3D
+![手持遥控器](/Docs/Pictures/Remoted-3D.png "手持遥控器")
+
+## Software
+
+### 两种模式
+
+- [x] 自动追踪模式
+- [x] 遥控模式
+- 数据包通信协议
+
+| 编号 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| 数据所代表的含义 | 模式位 | 包头 | 包头 | 数据长度位 | X轴角度 | Y轴角度 | 校验 | 
+| 说明 | 1-遥控、0-追踪 | AA | 55 | 2 | X_angle | Y_angle | 累加 |
+| 数组编号 | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
+
+
