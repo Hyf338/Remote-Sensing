@@ -73,7 +73,8 @@ Keil|软件编程
 
 ### 核心PID算法
 PID算法的详解已上传至CSDN。
-【欢迎关注】：https://me.csdn.net/weixin_42881419
+【PID算法详解】：https://blog.csdn.net/weixin_42881419/article/details/86551249
+【欢迎关注个人主页】：https://me.csdn.net/weixin_42881419
 ````
 float PID_Cal(float Speed)
 {
