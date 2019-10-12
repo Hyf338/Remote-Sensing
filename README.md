@@ -17,6 +17,9 @@ Keil|软件编程
 123D Design|3D软件
 
 
+- 3轴姿态方向说明
+![3轴姿态方向说明](/Docs/Pictures/MPU6050.png "3轴姿态方向说明")
+
 ## 目录说明
 ````
 +——Marine craft
