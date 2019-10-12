@@ -71,7 +71,7 @@ Keil|软件编程
 | 说明 | 1-遥控、0-追踪 | AA | 55 | 2 | X_angle | Y_angle | 累加 |
 | 数组编号 | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
 
-### 算法PID算法
+### 核心PID算法
 ````
 
 float PID_Cal(float Speed)
