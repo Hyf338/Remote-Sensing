@@ -1,5 +1,6 @@
 # Remote-Sensing
 Base on mpu6050，designed a car with remote sense.
+基于MPU6050，制作手势遥感遥控车。
 
 <p align="center">
   <a href="https://img.shields.io/badge/language-C-brigreen.svg?style=flat-square"><img src="https://img.shields.io/badge/language-C-brigreen.svg?style=flat-square" alt="C"></a>
