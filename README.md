@@ -57,6 +57,9 @@ Keil|软件编程
 - [x] 手持遥控器3D
 ![手持遥控器](/Docs/Pictures/Remoted-3D.png "手持遥控器")
 
+- [x] 手持遥控器实物
+![遥控器](/Docs/Pictures/Remote.jpg "遥控器")
+
 ## Software
 
 ### 两种模式
