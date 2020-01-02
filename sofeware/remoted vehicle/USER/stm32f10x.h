@@ -482,6 +482,7 @@ typedef enum IRQn
 /** @addtogroup Exported_types
   * @{
   */  
+
 /*!< STM32F10x Standard Peripheral Library old types (maintained for legacy purpose) */
 typedef int32_t  s32;
 typedef int16_t s16;
