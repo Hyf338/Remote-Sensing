@@ -133,7 +133,7 @@ void delay_init()
 	SysTick_CLKSourceConfig(SysTick_CLKSource_HCLK_Div8);	//选择外部时钟  HCLK/8
 	fac_us=SystemCoreClock/8000000;				//为系统时钟的1/8  
 #if SYSTEM_SUPPORT_OS  							//如果需要支持OS.
-	reload=SystemCoreClock/8000000;				//每秒钟的计数次数 单位为M  
+	reload=SystemCoreClock/8000000;				//每秒钟的计数次数 单位为K	   
 	reload*=1000000/delay_ostickspersec;		//根据delay_ostickspersec设定溢出时间
 												//reload为24位寄存器,最大值:16777216,在72M下,约合1.86s左右	
 	fac_ms=1000/delay_ostickspersec;			//代表OS可以延时的最少单位	   

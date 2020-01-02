@@ -3023,20 +3023,3 @@ u8 mpu_dmp_get_data(float *pitch,float *roll,float *yaw)
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

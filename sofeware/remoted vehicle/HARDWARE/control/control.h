@@ -1,11 +1,11 @@
-#ifndef __CONTROL_H
-#define __CONTROL_H
+#ifndef _CONTROL_H
+#define _CONTROL_H
 #include "sys.h"
 
-void display(u8 mode);
-void adc_data_process(void);
 
+void data_process(void);
+void Infrared_mode(void);
+void angle_mode(void);
+void run(void);
 
 #endif
-
-

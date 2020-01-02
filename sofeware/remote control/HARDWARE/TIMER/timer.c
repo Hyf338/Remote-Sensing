@@ -1,6 +1,5 @@
 #include "timer.h"
 #include "stm32f10x_tim.h"
-#include "control.h"
 #include "usart.h"
 
 extern u8 send_data[8];
@@ -135,21 +134,15 @@ void TIM4_IRQHandler(void)
 		if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET) //检查指定的TIM中断发生与否:TIM 中断源 
 		{
 			TIM_ClearITPendingBit(TIM4, TIM_IT_Update );   //清除TIMx的中断待处理位:TIM 中断源
-			angle_get();
-			data_process();
-			Send_data(USART1,send_data);
-			
-
+//			angle_get();
+//			datasend();
+//			Send_data(USART1,send_data);
 //			send_data[0]=0xaa;
 //			send_data[1]=pitch;
 //			send_data[2]=roll;
-//			send_data[3]=yaw;
+//			send_data[3]=yaw;	
 			
-			
-			
-			
-			
-			//		USART_SendData(USART1, 'C');
+//					USART_SendData(USART1, 'C');
 //		while(USART_GetFlagStatus(USART1,USART_FLAG_TC)!=SET);//等待发送结束	
 			
 			

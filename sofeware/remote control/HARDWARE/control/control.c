@@ -1,110 +1,137 @@
 #include "control.h"
-#include "sys.h"
+#include "datatype.h"
 
+//--------相关外设头文件
+#include "oled.h"
+#include "adc.h"
+#include "adc.h"
+#include "usart.h"
+
+//---------陀螺仪头文件---------------
 #include "mpuiic.h"
 #include "mpu6050.h"
 #include "inv_mpu.h"
 #include "inv_mpu_dmp_motion_driver.h" 
-#include "usart.h"
-#include "oled.h"
-
-/*
-	pitch    short     						原始数据
-	Pitch    signed short int     强制转化成有符号16位
-	pitch_L  short int        		低八位
-*/
-
-u8 send_data[8]={0,0,0,0,0,0,0,0};
-signed short int test_1=0;
-int test_size=0;
-signed short int pitch_L=0,pitch_H=0,roll_L=0,roll_H=0,yaw_L=0,yaw_H=0;
-signed short int Pitch=0,Roll=0,Yaw=0;
 
 
-extern float pitch,roll,yaw; 		//欧拉角									//俯仰角		翻滚角		横向角
-extern short aacx,aacy,aacz;		//加速度传感器原始数据
-extern short gyrox,gyroy,gyroz;	//陀螺仪原始数据
-extern short temp;					//温度
+extern struct angle angle;
+extern struct adc ADC;
+extern char buffer[20];
 
-
-void BUZZ_Init(void)
+void page_select(u8 mode)
 {
-	GPIO_InitTypeDef  GPIO_InitStructure;
- 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);	 //使能PA,PD端口时钟
-	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO,ENABLE);
-	GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);
-	
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;				 //LED0-->PA.8 端口配置
-	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; 		 //推挽输出
-	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;		 //IO口速度为50MHz
-	GPIO_Init(GPIOB, &GPIO_InitStructure);					 //根据设定参数初始化GPIOA.8
-	GPIO_ResetBits(GPIOB,GPIO_Pin_4);						 //PA.8 输出高
-}
- 
-
-
-void angle_get()
-{
-	if(mpu_dmp_get_data(&pitch,&roll,&yaw)==0)
-	{ 
-		temp=MPU_Get_Temperature();	//得到温度值
-		MPU_Get_Accelerometer(&aacx,&aacy,&aacz);	//得到加速度传感器数据
-		MPU_Get_Gyroscope(&gyrox,&gyroy,&gyroz);	//得到陀螺仪数据
-	}
-}
-
-
-
-void data_process()
-{
-	u8 i=0;
-	
-	Pitch=(signed short int)pitch;
-	Roll=(signed short int)roll;
-	Yaw=(signed short int)yaw;
-	
-	send_data[i++]=0xaa;
-	
-	pitch_L=Pitch&0x00ff;
-	send_data[i++]=pitch_L;
-	pitch_H=Pitch&0xff00;
-	pitch_H>>=8;
-	send_data[i++]=pitch_H;
-	
-	roll_L=Roll&0x00ff;
-	send_data[i++]=roll_L;
-	roll_H=Roll&0xff00;
-	roll_H>>=8;
-	send_data[i++]=roll_H;
-	
-	yaw_L=Yaw&0x00ff;
-	send_data[i++]=yaw_L;
-	yaw_H=Yaw&0xff00;
-	yaw_H>>=8;
-	send_data[i++]=yaw_H;	
-	
-	if(GPIO_ReadInputDataBit(GPIOC,GPIO_Pin_7)==0)
-		send_data[7]=0X01;
-
-}
-
-void Page1(void)
-{
-//	OLED_Clear();
-	OLED_ShowCHinese1(27,0,0);
-	OLED_ShowCHinese1(45,0,1);
-	OLED_ShowCHinese1(63,0,2);
-	OLED_ShowCHinese1(81,0,3);
-	OLED_ShowString1(0,2,"Pitch");
-	OLED_ShowString1(0,4,"Roll");
-	OLED_ShowString1(0,6,"Yaw");  
-	Dis_Float(2,71,Pitch,2);
-	Dis_Float(4,71,Roll,2);
-	Dis_Float(6,71,Yaw,2);	
-	if(send_data[7]==0x01)
+	static char page=0;
+	if(mode == sens_mode)
 	{
-		OLED_ShowString1(110,6,"*");
+		page = sens_mode;
+		OLED_Clear();
+	}
+	else if(mode == remote_mode)
+	{
+		page = remote_mode;
+		OLED_Clear();
+	}
+	display(page);
+}
+
+
+/********************
+* @breif : Human Machine Interface
+* @param : mode ---> motion mode select
+* @retval : none
+********************/
+void display(u8 page)
+{
+	OLED_ShowString(0,0,(u8 *)"*Mode->",16);
+	if(page == sens_mode)
+	{
+		OLED_ShowString(60,0,(u8 *)"sense",16);
+		OLED_ShowString(0,16,(u8 *)"Pitch:",16);
+		OLED_ShowString(0,32,(u8 *)"Roll:",16);
+		OLED_ShowString(0,48,(u8 *)"Yaw:",16);
+		OLED_ShowNum(60,16,angle.pitch,4,16);
+		OLED_ShowNum(60,32,angle.roll,4,16);
+		OLED_ShowNum(60,48,angle.yaw,4,16);
+		if(angle.pitch<0)
+		{
+			OLED_ShowString(65,16,(u8 *)"-",16);
+		}
+		if(angle.roll<0)
+		{
+			OLED_ShowString(65,32,(u8 *)"-",16);
+		}
+		if(angle.yaw<0)
+		{
+			OLED_ShowString(65,48,(u8 *)"-",16);
+		}
+		OLED_Refresh_Gram();
+	}
+	else if(page == remote_mode)
+	{
+		adc_data_process();
+		OLED_ShowString(60,0,(u8 *)"remote",16);
+		OLED_ShowString(0,16,(u8 *)"UD:",16);
+		OLED_ShowString(0,32,(u8 *)"LR:",16);
+		OLED_ShowString(64,16,(u8 *)"UD:",16);
+		OLED_ShowString(64,32,(u8 *)"LR:",16);
+		OLED_ShowNum(25,16,ADC.adc_left_UD,4,16);
+		OLED_ShowNum(25,32,ADC.adc_left_LR,4,16);
+		OLED_ShowNum(85,16,ADC.adc_right_UD,4,16);
+		OLED_ShowNum(85,32,ADC.adc_right_LR,4,16);
+		OLED_Refresh_Gram();
 	}
 }
+
+
+/********************************
+* @breif : get adc_data ten times to get average value;after process, value is 0-100
+* @param : none
+* @retval : none
+*********************************/
+void adc_data_process(void)
+{
+	ADC.adc_left_LR = Get_Adc_Average(ADC_Channel_13,10);
+	ADC.adc_left_UD = Get_Adc_Average(ADC_Channel_12,10);
+	ADC.adc_right_LR= Get_Adc_Average(ADC_Channel_11,10);
+	ADC.adc_right_UD = Get_Adc_Average(ADC_Channel_10,10);
+	
+	ADC.adc_left_LR=ADC.adc_left_LR*100/4096;
+	ADC.adc_left_UD=100-ADC.adc_left_UD*100/4096;
+	ADC.adc_right_LR=ADC.adc_right_LR*100/4096;
+	ADC.adc_right_UD=100-ADC.adc_right_UD*100/4096;
+}
+
+
+
+/********************************
+* @breif : 
+* @param : 
+* @retval : 
+*********************************/
+void data_send_process(u8 mode)
+{
+	char *p = NULL;
+	char i=0;
+	if(mode == sens_mode)
+	{
+		buffer[2] = mode;
+		p = (char* )&angle;
+	}
+	else if(mode == remote_mode)
+	{
+		buffer[2] = mode;
+		p = (char* )&ADC;
+	}
+	
+	for(i=0;i<sizeof(struct angle);i++)
+	{
+		buffer[i+3]=*p;
+		p++;
+	}
+	Send_data(USART1,buffer,i+2);
+}
+
+
+
 
 

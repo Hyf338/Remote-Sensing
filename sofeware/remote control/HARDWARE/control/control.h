@@ -1,12 +1,11 @@
-#ifndef _CONTROL_H
-#define _CONTROL_H
+#ifndef __CONTROL_H
+#define __CONTROL_H
 #include "sys.h"
 
+void display(u8 mode);
+void adc_data_process(void);
 
-void BUZZ_Init(void);
-void key_init(void);
-void angle_get(void);
-void data_process(void);
-void Page1(void);
 
 #endif
+
+

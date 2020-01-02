@@ -16,7 +16,12 @@
 		   
 //初始化ADC
 //这里我们仅以规则通道为例
-//我们默认将开启通道0~3																	   
+//我们默认将开启通道0~3		
+/*********************************
+* @brief ADC init
+* @param none
+* @retval none
+*********************************/
 void  Adc_Init(void)
 { 	
 	ADC_InitTypeDef ADC_InitStructure; 
@@ -28,7 +33,7 @@ void  Adc_Init(void)
 	RCC_ADCCLKConfig(RCC_PCLK2_Div6);   //设置ADC分频因子6 72M/6=12,ADC最大时间不能超过14M
 
 	//PA1 作为模拟通道输入引脚                         
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 | GPIO_Pin_1 | GPIO_Pin_2 | GPIO_Pin_3;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AIN;		//模拟输入引脚
 	GPIO_Init(GPIOC, &GPIO_InitStructure);	
 
@@ -58,6 +63,31 @@ void  Adc_Init(void)
 }				  
 //获得ADC值
 //ch:通道值 0~3
+
+/*********************************
+* @brief get ADC value
+* @param  ADC_Channel: the ADC channel to configure. 
+*   This parameter can be one of the following values:
+*     @arg ADC_Channel_0: ADC Channel0 selected
+*     @arg ADC_Channel_1: ADC Channel1 selected
+*     @arg ADC_Channel_2: ADC Channel2 selected
+*     @arg ADC_Channel_3: ADC Channel3 selected
+*     @arg ADC_Channel_4: ADC Channel4 selected
+*     @arg ADC_Channel_5: ADC Channel5 selected
+*     @arg ADC_Channel_6: ADC Channel6 selected
+*     @arg ADC_Channel_7: ADC Channel7 selected
+*     @arg ADC_Channel_8: ADC Channel8 selected
+*     @arg ADC_Channel_9: ADC Channel9 selected
+*     @arg ADC_Channel_10: ADC Channel10 selected
+*     @arg ADC_Channel_11: ADC Channel11 selected
+*     @arg ADC_Channel_12: ADC Channel12 selected
+*     @arg ADC_Channel_13: ADC Channel13 selected
+*     @arg ADC_Channel_14: ADC Channel14 selected
+*     @arg ADC_Channel_15: ADC Channel15 selected
+*     @arg ADC_Channel_16: ADC Channel16 selected
+*     @arg ADC_Channel_17: ADC Channel17 selected
+* @retval last ADC value
+*********************************/
 u16 Get_Adc(u8 ch)   
 {
   	//设置指定ADC的规则组通道，一个序列，采样时间
@@ -69,6 +99,9 @@ u16 Get_Adc(u8 ch)
 
 	return ADC_GetConversionValue(ADC1);	//返回最近一次ADC1规则组的转换结果
 }
+
+
+
 
 u16 Get_Adc_Average(u8 ch,u8 times)
 {
