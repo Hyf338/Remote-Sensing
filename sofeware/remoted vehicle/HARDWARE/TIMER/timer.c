@@ -4,11 +4,6 @@
 
 //定时器3中断服务函数
 
-extern bool mode_flag;
-extern bool recvice_flag;
-extern bool stop_flag;
-
-short stop_cpunt=0;
 
 //////////////////////////////////////////////////////////////////////////////////	 
 //tim1:ch1234,pa8、9、10、11 ch123n,pb13、14、15 etr,pa12 bkin,pb12
@@ -26,7 +21,10 @@ short stop_cpunt=0;
 // TIM4_CH2 PWM8 PB7
 ////////////////////////////////////////////////////////////////////////////////// 	  
 
+/****************************
+* @breif :motor init
 
+****************************/
 void TIM1_Int_Init(u16 arr,u16 psc)
 {
 
@@ -37,11 +35,11 @@ void TIM1_Int_Init(u16 arr,u16 psc)
 
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);	//使能定时器3时钟
  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);  //使能GPIO外设模块时钟
-//	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);  //使能AFIO复用功能模块时钟
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);  //使能AFIO复用功能模块时钟
 ////	
 ////	
 ////	GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);//关闭JTAG-DP，启用SW-DP
-//	GPIO_PinRemapConfig(GPIO_PartialRemap_TIM1, ENABLE); //Timer3部分重映射  
+	//GPIO_PinRemapConfig(GPIO_PartialRemap_TIM1, ENABLE); //Timer3部分重映射  
  
    //设置该引脚为复用输出功能,输出TIM3 CH2的PWM脉冲波形	GPIOB.5
 	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_8|GPIO_Pin_9|GPIO_Pin_10|GPIO_Pin_11; //TIM_CH2|ch1   B4.B5
@@ -121,16 +119,7 @@ void TIM3_IRQHandler(void)
 {
 	if(TIM_GetITStatus(TIM3,TIM_IT_Update)==SET) //溢出中断  5ms中断
 	{
-		if(stop_flag==true)
-		{
-		stop_cpunt++;
-		stop_cpunt=stop_cpunt>2000?2000:stop_cpunt;
-		}
-		else stop_cpunt=0;
-		if(stop_cpunt==2000 && recvice_flag== false)
-		{
-			mode_flag=true;
-		}
+
 	}
 		TIM_ClearITPendingBit(TIM3,TIM_IT_Update);  //清除中断标志位
 }

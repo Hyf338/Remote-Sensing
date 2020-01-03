@@ -324,7 +324,7 @@
             <wLevel>0</wLevel>
             <uThumb>0</uThumb>
             <uSurpInc>0</uSurpInc>
-            <uC99>0</uC99>
+            <uC99>1</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
             <v6Lang>1</v6Lang>
@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_MD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER;..\CORE;..\STM32_FWLIB\inc;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\MyCode\led;..\MyCode\Buzzer;..\MyCode\HX711;..\HARDWARE\control;..\HARDWARE\Display;..\HARDWARE\KEY;..\HARDWARE\OLED;..\HARDWARE\TIMER</IncludePath>
+              <IncludePath>..\USER;..\CORE;..\STM32_FWLIB\inc;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\MyCode\led;..\MyCode\Buzzer;..\MyCode\HX711;..\HARDWARE\control;..\HARDWARE\Display;..\HARDWARE\KEY;..\HARDWARE\OLED;..\HARDWARE\TIMER;..\HARDWARE\datatype</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -494,6 +494,11 @@
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\TIMER\timer.c</FilePath>
+            </File>
+            <File>
+              <FileName>datatype.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\datatype\datatype.c</FilePath>
             </File>
           </Files>
         </Group>

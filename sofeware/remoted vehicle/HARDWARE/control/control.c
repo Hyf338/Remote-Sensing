@@ -3,53 +3,12 @@
 #include "timer.h"
 #include "stdbool.h"
 #include "key.h"
-
-/*
-	pitch    short     						原始数据
-	Pitch    signed short int     强制转化成有符号16位
-	pitch_L  short int        		低八位
-*/
-
-extern u8 receive_data[8];
-extern char pitch_L,pitch_H,roll_L,roll_H,yaw_L,yaw_H;
-extern signed short int Pitch,Roll,Yaw;
-extern int Motor1,Motor2,Motor3,Motor4;
-extern bool start_flag;
-extern bool mode_flag;
-
-bool recvice_flag=false;
-bool stop_flag=false;
-
-short test=0;
+#include "datatype.h"
 
 
-
-void data_process(void)
-{
-
-	test=0;
-	test=pitch_H;
-	test<<=8;
-	test&=0xff00;
-	test|=pitch_L;
-	Pitch=test;
-	
-	test=0;
-	test=roll_H;
-	test<<=8;
-	test&=0xff00;
-	test|=roll_L;
-	Roll=test;
-	
-	test=0;
-	test=yaw_H;
-	test<<=8;
-	test&=0xff00;
-	test|=yaw_L;
-	Yaw=test;
-	
-}
-
+extern struct angle angle;
+extern struct motor motor;
+extern struct adc adc;
 /*
 	右轮   TIM1 ch1 ch2 状态
 								+		0		前进
@@ -64,125 +23,74 @@ void data_process(void)
 */
 
 
-void Infrared_mode(void)
+/*********************************
+* @brief  set the motor param to make car stop
+* @param none
+* @retval none
+*********************************/
+void stop()
 {
-	
-	if(Infrared_rightmost==0&&Infrared_leftmost==0&&Infrared_right==0&&Infrared_left==0&&Infrared_mid==0)
-	{
-		stop_flag=true;
-		TIM_Cmd(TIM3, ENABLE);  //使能TIM1
-		Motor1=200;
-		Motor2=0;
-		Motor3=800;
-		Motor4=200;
-	}
-	
-	else
-	{
-		stop_flag=false;
-		if(Infrared_rightmost==1&&Infrared_leftmost==1&&Infrared_right==1&&Infrared_left==1)
-		{
-			Motor1=450;
-			Motor2=0;
-			Motor3=800;
-			Motor4=400;
-		}
-		else if(Infrared_rightmost==1)
-		{
-			Motor1=500;
-			Motor2=0;
-			Motor3=0;
-			Motor4=550;
-		}
-		else if(Infrared_leftmost==1)
-		{
-			Motor1=0;
-			Motor2=400;
-			Motor3=800;
-			Motor4=450;
-		}
-		else if(Infrared_right==1)
-		{
-			Motor1=300;
-			Motor2=0;
-			Motor3=800;
-			Motor4=200;
-		}
-		else if(Infrared_left==1)
-		{
-			Motor1=200;
-			Motor2=0;
-			Motor3=800;
-			Motor4=350;
-		}
-		else if(Infrared_leftmost==0&&Infrared_left==0&&Infrared_mid==1&&Infrared_right==0&&Infrared_rightmost==0)
-		{
-			Motor1=350;
-			Motor2=0;
-			Motor3=800;
-			Motor4=400;
-		}
-	}
+	motor.motor1 =0;
+	motor.motor2 =0;
+	motor.motor3 =0;
+	motor.motor4 =4999;
 }
 
-
+/*********************************
+* @brief base on angle（pitch/yaw） to control car
+* @param mode : sens_mode/remote_mode
+* @retval none
+*********************************/
 void angle_mode(void)
 {
-
-	if(Pitch>0)
+	if(angle.pitch>2)
 	{
-		Motor1=20*Pitch;
-		Motor2=0;
-		Motor3=800;
-		Motor4=15*Pitch;
+		motor.motor1 =200+angle.pitch*100;
+		motor.motor3 =200+angle.pitch*100;
+		motor.motor2 =0;
+		motor.motor4 =4999;
+	}
+	
+	else if(angle.pitch<-2)
+	{
+		motor.motor2 =-200-angle.pitch*100;
+		motor.motor4 =0;
+		motor.motor1 =0;
+		motor.motor3 =4999-200-angle.pitch*100;
 	}
 	else 
-	{
-		Motor1=0;
-		Motor2=-20*Pitch;
-		Motor3=800+15*Pitch;
-		Motor4=0;
-	}
-	if(Roll>0)
-	{
-		Motor1+=15*Roll;
-		Motor2=Motor2;
-		
-	}
-	else
-	{
-		Motor4-=15*Roll;
-	}
+		stop();
 }
-
-
-void run()
+/*********************************
+* @brief base on putter(adc) to control car
+* @param mode : sens_mode/remote_mode
+* @retval none
+*********************************/
+void adc_mode()
 {
-	if(start_flag == true)
-	{
-		if(mode_flag==false)
-		{
-			Infrared_mode();
-		}
-		if(mode_flag==true)
-		{
-			angle_mode();
-		}
-		if(recvice_flag==1)
-		{
-			mode_flag=false;
-		}
-	}
-	if(start_flag==false)
-	{
-		Motor1=0;
-		Motor2=0;
-		Motor3=0;
-		Motor4=800;
-	}
-	TIM_SetCompare1(TIM1,Motor1);
-	TIM_SetCompare2(TIM1,Motor2);			 
-	TIM_SetCompare3(TIM1,Motor3);		   
-	TIM_SetCompare4(TIM1,Motor4);
+	motor.motor1 =200+adc.adc_left_UD*100;
+	motor.motor3 =200+adc.adc_left_UD*100;
+	motor.motor2 =0;
+	motor.motor4 =4999;
+	
+	
+}
+/*********************************
+* @brief choose a mode to run
+* @param mode : sens_mode/remote_mode
+* @retval none
+*********************************/
+void run(u8 mode)
+{
+	if(mode == sens_mode)
+		angle_mode();
+	else if(mode == remote_mode)
+		adc_mode();
+	else 
+		stop();
+	TIM_SetCompare1(TIM1,motor.motor1);
+	TIM_SetCompare2(TIM1,motor.motor2);			 
+	TIM_SetCompare3(TIM1,motor.motor3);		   
+	TIM_SetCompare4( TIM1,motor.motor4);
 }
 

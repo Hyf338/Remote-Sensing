@@ -6,6 +6,6 @@
 void data_process(void);
 void Infrared_mode(void);
 void angle_mode(void);
-void run(void);
+void run(u8 mode);
 
 #endif
