@@ -44,3 +44,4 @@
 ..\obj\main.o: ..\HARDWARE\KEY\key.h
 ..\obj\main.o: ..\HARDWARE\ADC\adc.h
 ..\obj\main.o: ..\HARDWARE\BUZZ\buzz.h
+..\obj\main.o: ..\HARDWARE\display\display.h

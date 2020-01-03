@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>STM32F10X_HD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>..\USER;..\CORE;..\STM32F10x_FWLib\inc;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\HARDWARE\MPU6050\eMPL;..\HARDWARE\MPU6050;..\HARDWARE\ADC;..\HARDWARE\KEY;..\HARDWARE\OLED;..\HARDWARE\TIMER;..\HARDWARE\BUZZ;..\HARDWARE\control;..\HARDWARE\datatype</IncludePath>
+              <IncludePath>..\USER;..\CORE;..\STM32F10x_FWLib\inc;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\HARDWARE\MPU6050\eMPL;..\HARDWARE\MPU6050;..\HARDWARE\ADC;..\HARDWARE\KEY;..\HARDWARE\OLED;..\HARDWARE\TIMER;..\HARDWARE\BUZZ;..\HARDWARE\control;..\HARDWARE\datatype;..\HARDWARE\display</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -621,6 +621,11 @@
               <FileName>datatype.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\HARDWARE\datatype\datatype.c</FilePath>
+            </File>
+            <File>
+              <FileName>display.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\HARDWARE\display\display.c</FilePath>
             </File>
           </Files>
         </Group>

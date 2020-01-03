@@ -2,8 +2,14 @@
 #include "stm32f10x_tim.h"
 #include "usart.h"
 
-extern u8 send_data[8];
+extern u8 buffer[20];
 
+
+/**********************************
+
+
+
+**********************************/
 void TIM1_Int_Init(u16 arr,u16 psc)
 {
 
@@ -15,8 +21,7 @@ void TIM1_Int_Init(u16 arr,u16 psc)
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_TIM1, ENABLE);	//使能定时器3时钟
  	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA, ENABLE);  //使能GPIO外设模块时钟
 // 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);  //使能AFIO复用功能模块时钟
-//	
-//	
+
 //	GPIO_PinRemapConfig(GPIO_Remap_SWJ_JTAGDisable, ENABLE);//关闭JTAG-DP，启用SW-DP
 //	GPIO_PinRemapConfig(GPIO_PartialRemap_TIM3, ENABLE); //Timer3部分重映射  
  
@@ -114,8 +119,6 @@ void TIM4_Int_Init(u16 arr,u16 psc)
 	TIM_TimeBaseStructure.TIM_ClockDivision = 0; //设置时钟分割:TDTS = Tck_tim
 	TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up;  //TIM向上计数模式
 	TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure); //根据TIM_TimeBaseInitStruct中指定的参数初始化TIMx的时间基数单位
- 
-//	TIM_ITConfig(TIM4,TIM_IT_Update,ENABLE ); //使能指定的TIM3中断,允许更新中断
 
 	NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;  //TIM3中断
 	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 2;  //先占优先级0级
@@ -124,29 +127,21 @@ void TIM4_Int_Init(u16 arr,u16 psc)
 	NVIC_Init(&NVIC_InitStructure);  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器
 
   TIM_ITConfig(TIM4,TIM_IT_Update,ENABLE ); //使能指定的TIM3中断,允许更新中断
+	TIM_Cmd(TIM4,ENABLE); //使能定时器3
 
 }
 
-
+/******************************
+* @breif : 50ms send data regularly
+* @param : none
+* @retval : none
+******************************/
 void TIM4_IRQHandler(void)
 {
-
-		if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET) //检查指定的TIM中断发生与否:TIM 中断源 
-		{
-			TIM_ClearITPendingBit(TIM4, TIM_IT_Update );   //清除TIMx的中断待处理位:TIM 中断源
-//			angle_get();
-//			datasend();
-//			Send_data(USART1,send_data);
-//			send_data[0]=0xaa;
-//			send_data[1]=pitch;
-//			send_data[2]=roll;
-//			send_data[3]=yaw;	
-			
-//					USART_SendData(USART1, 'C');
-//		while(USART_GetFlagStatus(USART1,USART_FLAG_TC)!=SET);//等待发送结束	
-			
-			
-		}
-
+	if (TIM_GetITStatus(TIM4, TIM_IT_Update) != RESET) //检查指定的TIM中断发生与否:TIM 中断源 
+	{
+		TIM_ClearITPendingBit(TIM4, TIM_IT_Update );   //清除TIMx的中断待处理位:TIM 中断源
+		Send_data(USART1,buffer,20);
+	}
 }
 

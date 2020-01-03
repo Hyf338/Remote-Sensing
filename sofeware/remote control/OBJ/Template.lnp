@@ -41,6 +41,7 @@
 "..\obj\buzz.o"
 "..\obj\control.o"
 "..\obj\datatype.o"
+"..\obj\display.o"
 --library_type=microlib --strict --scatter "..\OBJ\Template.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers

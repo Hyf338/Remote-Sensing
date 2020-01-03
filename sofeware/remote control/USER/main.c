@@ -20,6 +20,7 @@
 #include "key.h"
 #include "adc.h"
 #include "buzz.h"
+#include "display.h"
 
 
 extern struct angle angle;
@@ -35,8 +36,9 @@ int main(void)
 	 OLED_Init();
 	 KEY_Init(); //IO初始化
 	 Adc_Init();
-   TIM4_Int_Init(50000,107);
-	 //Boot_Animation();
+   TIM4_Int_Init(4999,71);//Tout = （（arr+1）*（psc+1））/Tclk = （（4999+1）×（71+1））/72 = 5ms
+
+	 Boot_Animation();
 
 	 
 	 //----陀螺仪初始化--------------------
@@ -57,8 +59,8 @@ int main(void)
 		while(1)
 		{
 			mpu_dmp_get_data(&angle.pitch,&angle.roll,&angle.yaw);
-			page_select(KEY_Scan(1));
-			data_send_process(1);
+			
+			data_send_process(mode_select(KEY_Scan(1)));
 		}	 
 } 
 
