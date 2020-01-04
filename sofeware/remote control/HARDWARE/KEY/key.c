@@ -38,7 +38,7 @@ void KEY_Init(void) //IO初始化
 //注意此函数有响应优先级,KEY0>KEY1>KEY2>KEY3!!
 
 /*********************************
-* @brief 
+* @brief key_scan
 * @param whether Continuous press
 					mode=1: support Continuous press
 					mode=0: do not suporrt
