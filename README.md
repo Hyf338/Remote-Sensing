@@ -1,8 +1,11 @@
 # Remote-Sensing
-Base on mpu6050，designed a car with remote sense.
+基于MPU6050+stm32f103，设计一集遥感和推杆两种控制模式一体的小车。Base on mpu6050，designed a car with remote sense.
 
 <p align="center">
   <a href="https://img.shields.io/badge/language-C-brigreen.svg?style=flat-square"><img src="https://img.shields.io/badge/language-C-brigreen.svg?style=flat-square" alt="C"></a>
+</p>
+<p align="center">
+  <a href="https://img.shields.io/endpoint?label=remoted&logo=mpu6050"><img src="https://img.shields.io/endpoint?label=remoted&logo=mpu6050" alt="C"></a>
 </p>
 
 
@@ -10,16 +13,16 @@ Base on mpu6050，designed a car with remote sense.
 ## 简介
 2019集大电协 手势遥感遥控车
 
+## 背景
+在玩具制造业中，遥控手柄控制的玩具车占有很大比重。但是传统的按键手柄控制方式已经很难吸引大众的眼球。故本项目研究基于陀螺仪的手势遥感车，它能够完整地监测游戏者手的位移和旋转，利用玩家的手势姿态来替代繁琐的按键操作，从而实现各种游戏的操作效果。系统的目的是，利用陀螺仪进行角度检测，改善繁琐的按键控制方式，改变传统遥控方式。
+
+## 工具介绍
+
 工具     | 描述
 -------- | -----
 Altium Design|PCB设计
 Keil|软件编程
 123D Design|3D软件
-
-
-- 3轴姿态方向说明
-
-![3轴姿态方向说明](/Docs/Pictures/MPU6050.png "3轴姿态方向说明")
 
 ## 目录说明
 ````
@@ -32,6 +35,12 @@ Keil|软件编程
 |       ├──Remote vehicle【遥感车程序】
 |       ├──Remote control【遥控器程序】
 ````
+
+
+- 3轴姿态方向说明
+
+![3轴姿态方向说明](/Docs/Pictures/MPU6050.png "3轴姿态方向说明")
+
 
 
 ## Hardware
@@ -64,8 +73,8 @@ Keil|软件编程
 
 ### 两种模式
 
-- [x] 自动追踪模式
-- [x] 遥控模式
+- [x] 摇杆遥控模式
+- [x] 推杆遥控模式
 - 数据包通信协议
 
 | 编号 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 
