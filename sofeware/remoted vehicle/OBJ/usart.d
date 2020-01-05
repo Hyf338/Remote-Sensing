@@ -14,3 +14,4 @@
 ..\obj\usart.o: ..\STM32_FWLIB\inc\misc.h
 ..\obj\usart.o: D:\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
 ..\obj\usart.o: ..\HARDWARE\datatype\datatype.h
+..\obj\usart.o: D:\MDK5\ARM\ARMCC\Bin\..\include\string.h

@@ -1,8 +1,14 @@
 #ifndef __DATATYPE_H
 #define __DATATYPE_H
 
+
+#define left_offset 200
+#define right_offset 300
+#define putter_offset 50
+
+
 enum MODE{
-	sens_mode=1,remote_mode
+ disconnect,sens_mode,remote_mode
 };
 
 struct angle{

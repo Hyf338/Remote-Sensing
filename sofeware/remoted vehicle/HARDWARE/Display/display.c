@@ -18,9 +18,10 @@ u8 mode_select(void)
 {
 	static char mode=0;
 	 OLED_ShowString1(0,0,"*mode->");
-	if(buffer[2] == 0)
+	if(buffer[2] == disconnect && (mode !=disconnect))
 	{
-		OLED_ShowString1(30,2,"wait");
+		mode = disconnect;
+		OLED_Clear();
 	}
 	else if(buffer[2] == sens_mode && (mode !=sens_mode))
 	{
@@ -42,6 +43,8 @@ u8 mode_select(void)
 ********************/
 void display(u8 mode)
 {
+	if(mode == disconnect)
+		OLED_ShowString1(30,2,"disconnect");
 	if(mode == sens_mode)
 	{
 	 OLED_ShowString1(70,0,"sens");
@@ -65,7 +68,3 @@ void display(u8 mode)
 	 Dis_Float(4,100,adc.adc_right_LR,0);
 	}
 }
-
-
-
-

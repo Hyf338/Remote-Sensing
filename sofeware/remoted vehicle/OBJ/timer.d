@@ -13,3 +13,4 @@
 ..\obj\timer.o: ..\STM32_FWLIB\inc\misc.h
 ..\obj\timer.o: ..\STM32_FWLIB\inc\stm32f10x_tim.h
 ..\obj\timer.o: D:\MDK5\ARM\ARMCC\Bin\..\include\stdbool.h
+..\obj\timer.o: D:\MDK5\ARM\ARMCC\Bin\..\include\string.h

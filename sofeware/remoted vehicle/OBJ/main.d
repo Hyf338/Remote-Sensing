@@ -11,7 +11,6 @@
 ..\obj\main.o: ..\STM32_FWLIB\inc\misc.h
 ..\obj\main.o: ..\SYSTEM\delay\delay.h
 ..\obj\main.o: ..\SYSTEM\sys\sys.h
-..\obj\main.o: ..\MyCode\HX711\HX711.h
 ..\obj\main.o: ..\SYSTEM\usart\usart.h
 ..\obj\main.o: D:\MDK5\ARM\ARMCC\Bin\..\include\stdio.h
 ..\obj\main.o: ..\HARDWARE\OLED\oled.h

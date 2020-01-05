@@ -1,10 +1,12 @@
 #include "usart.h"	
 #include "stdbool.h"
 #include "datatype.h"
+#include <string.h>
 
 u8 buffer[20]={0};
 extern struct angle angle;
 extern struct adc adc;
+extern char connect_flag;
 
 /*******************************
 UART1:
@@ -63,6 +65,7 @@ void USART2_IRQHandler(void)                	//串口2中断服务程序
 	if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)  //接收中断
 	{
 		res=USART_ReceiveData(USART2);
+		connect_flag =1;
 		switch(step)
 		{
 			case 0:
@@ -135,12 +138,12 @@ void USART2_IRQHandler(void)                	//串口2中断服务程序
 				step=0;
 				count=0;
 			}break;
-		}
+		
 	}
 //		while(USART_GetFlagStatus(USART1,USART_FLAG_TC)!=SET);//等待发送结束	
 //		USART_SendData(USART1, 'C');
 //		while(USART_GetFlagStatus(USART1,USART_FLAG_TC)!=SET);//等待发送结束	
 	
-
+}
 } 
 

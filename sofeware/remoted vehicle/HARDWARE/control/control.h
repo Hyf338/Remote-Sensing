@@ -2,6 +2,8 @@
 #define _CONTROL_H
 #include "sys.h"
 
+#define normal_coe 100
+#define spin_coe 50
 
 void data_process(void);
 void Infrared_mode(void);

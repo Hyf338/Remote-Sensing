@@ -9,6 +9,7 @@
 extern struct angle angle;
 extern struct motor motor;
 extern struct adc adc;
+extern char connect_flag;
 /*
 	ÓÒÂÖ   TIM1 ch1 ch2 ×´Ì¬
 								+		0		Ç°½ø
@@ -45,21 +46,37 @@ void angle_mode(void)
 {
 	if(angle.pitch>2)
 	{
-		motor.motor1 =200+angle.pitch*100;
-		motor.motor3 =200+angle.pitch*100;
+		motor.motor1 =left_offset+angle.pitch*normal_coe+angle.yaw*spin_coe;
+		motor.motor3 =right_offset+angle.pitch*normal_coe;
 		motor.motor2 =0;
 		motor.motor4 =4999;
+		
 	}
 	
 	else if(angle.pitch<-2)
 	{
-		motor.motor2 =-200-angle.pitch*100;
+		motor.motor2 =right_offset-angle.pitch*normal_coe;
 		motor.motor4 =0;
 		motor.motor1 =0;
-		motor.motor3 =4999-200-angle.pitch*100;
+		motor.motor3 =4999-left_offset+angle.pitch*normal_coe+angle.yaw*spin_coe;
+	}
+	else  if(angle.yaw > 2)
+	{
+		motor.motor1 =angle.pitch*spin_coe;
+		motor.motor3 =right_offset+angle.pitch*normal_coe;
+		motor.motor2 =0;
+		motor.motor4 =4999;
+	}
+	else if(angle.yaw < -2)
+	{
+		motor.motor1 =left_offset+angle.pitch*normal_coe;
+		motor.motor3 =angle.pitch*spin_coe;
+		motor.motor2 =0;
+		motor.motor4 =4999;
 	}
 	else 
 		stop();
+	
 }
 /*********************************
 * @brief base on putter(adc) to control car
@@ -68,10 +85,20 @@ void angle_mode(void)
 *********************************/
 void adc_mode()
 {
-	motor.motor1 =200+adc.adc_left_UD*100;
-	motor.motor3 =200+adc.adc_left_UD*100;
+	motor.motor1 =adc.adc_left_UD*100;
+	motor.motor3 =adc.adc_left_UD*100;
 	motor.motor2 =0;
 	motor.motor4 =4999;
+	
+	if(adc.adc_right_LR < putter_offset)
+	{
+		motor.motor1+=(adc.adc_right_LR-putter_offset)*spin_coe;
+	}
+	if(adc.adc_right_LR >
+		putter_offset)
+	{
+		motor.motor3 +=-(adc.adc_right_LR-putter_offset)*spin_coe;
+	}
 	
 	
 }
@@ -82,7 +109,11 @@ void adc_mode()
 *********************************/
 void run(u8 mode)
 {
-	if(mode == sens_mode)
+	if(mode == disconnect)
+	{
+		stop();
+	}
+	else if(mode == sens_mode)
 		angle_mode();
 	else if(mode == remote_mode)
 		adc_mode();
@@ -92,5 +123,6 @@ void run(u8 mode)
 	TIM_SetCompare2(TIM1,motor.motor2);			 
 	TIM_SetCompare3(TIM1,motor.motor3);		   
 	TIM_SetCompare4( TIM1,motor.motor4);
+	connect_flag=0;
 }
 

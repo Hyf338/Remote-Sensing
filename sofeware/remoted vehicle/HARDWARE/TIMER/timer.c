@@ -1,10 +1,13 @@
 #include "timer.h"
 #include "stm32f10x_tim.h"
 #include "stdbool.h"
+#include <string.h>
+
+extern u8 buffer[20];
+extern char connect_flag;
+extern char mode;
 
 //定时器3中断服务函数
-
-
 //////////////////////////////////////////////////////////////////////////////////	 
 //tim1:ch1234,pa8、9、10、11 ch123n,pb13、14、15 etr,pa12 bkin,pb12
 //tim2=103retim5:ch1234,pa0、1、2、3 remap: pa15、pb3、10、11
@@ -20,6 +23,8 @@
 // TIM4_CH1 PWM7 PB6
 // TIM4_CH2 PWM8 PB7
 ////////////////////////////////////////////////////////////////////////////////// 	  
+
+
 
 /****************************
 * @breif :motor init
@@ -111,17 +116,30 @@ void TIM3_Int_Init(u16 arr,u16 psc)
 	NVIC_InitStructure.NVIC_IRQChannelCmd=ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
 	
+	TIM_Cmd(TIM3, ENABLE);  //使能TIM1
 	
 }
 
 
 void TIM3_IRQHandler(void)
 {
+	static char connect_count=0;
 	if(TIM_GetITStatus(TIM3,TIM_IT_Update)==SET) //溢出中断  5ms中断
 	{
-
-	}
 		TIM_ClearITPendingBit(TIM3,TIM_IT_Update);  //清除中断标志位
+		if(connect_flag == 0)
+		{
+			connect_count ++;
+		}
+		else connect_count=0;
+		if(connect_count >=100)
+		{
+			mode =0;
+			connect_count =0;
+			buffer[2]=0;
+		}
+		
+	}
 }
 
 
