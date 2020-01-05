@@ -3,12 +3,16 @@
 
 <p align="center">
   <a href="https://img.shields.io/badge/language-C-brigreen.svg?style=flat-square"><img src="https://img.shields.io/badge/language-C-brigreen.svg?style=flat-square" alt="C"></a>
-</p>
-<p align="center">
+
   <a href="https://img.shields.io/endpoint?label=remoted&logo=mpu6050"><img src="https://img.shields.io/endpoint?label=remoted&logo=mpu6050" alt="C"></a>
 </p>
 
-
+****
+<p align="center">
+  <a href="./software/README.md">软件说明|</a>
+  <a href="./hardware/README.md">硬件说明|</a>
+  <a href="./Docs/姿态相关参考文档/姿态解算说明（Mini AHRS）.pdf">姿态解算|</a>
+</p>
 
 ## 简介
 2019集大电协 手势遥感遥控车
