@@ -1050,7 +1050,7 @@ I (..\STM32F10x_FWLib\inc\stm32f10x_usart.h)(0x504F415E)
 I (..\STM32F10x_FWLib\inc\stm32f10x_wwdg.h)(0x4D783BB4)
 I (..\STM32F10x_FWLib\inc\misc.h)(0x4D783BB4)
 I (..\SYSTEM\delay\delay.h)(0x555AC82B)
-F (..\HARDWARE\KEY\key.c)(0x5E0D9474)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I ..\USER -I ..\CORE -I ..\STM32F10x_FWLib\inc -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\MPU6050\eMPL -I ..\HARDWARE\MPU6050 -I ..\HARDWARE\ADC -I ..\HARDWARE\KEY -I ..\HARDWARE\OLED -I ..\HARDWARE\TIMER -I ..\HARDWARE\BUZZ -I ..\HARDWARE\control -I ..\HARDWARE\datatype -I ..\HARDWARE\display-I.\RTE\_Template-ID:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-ID:\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\key.o --omf_browse ..\obj\key.crf --depend ..\obj\key.d)
+F (..\HARDWARE\KEY\key.c)(0x5E0F590D)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I ..\USER -I ..\CORE -I ..\STM32F10x_FWLib\inc -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\MPU6050\eMPL -I ..\HARDWARE\MPU6050 -I ..\HARDWARE\ADC -I ..\HARDWARE\KEY -I ..\HARDWARE\OLED -I ..\HARDWARE\TIMER -I ..\HARDWARE\BUZZ -I ..\HARDWARE\control -I ..\HARDWARE\datatype -I ..\HARDWARE\display-I.\RTE\_Template-ID:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-ID:\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\key.o --omf_browse ..\obj\key.crf --depend ..\obj\key.d)
 I (..\USER\stm32f10x.h)(0x4D783CB4)
 I (..\CORE\core_cm3.h)(0x4D523B58)
 I (D:\MDK5\ARM\ARMCC\include\stdint.h)(0x599EDB3E)
@@ -1082,7 +1082,7 @@ I (..\STM32F10x_FWLib\inc\misc.h)(0x4D783BB4)
 I (..\HARDWARE\KEY\key.h)(0x5E0C66FE)
 I (..\SYSTEM\sys\sys.h)(0x550F951B)
 I (..\SYSTEM\delay\delay.h)(0x555AC82B)
-F (..\HARDWARE\OLED\oled.c)(0x5E0C5369)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I ..\USER -I ..\CORE -I ..\STM32F10x_FWLib\inc -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\MPU6050\eMPL -I ..\HARDWARE\MPU6050 -I ..\HARDWARE\ADC -I ..\HARDWARE\KEY -I ..\HARDWARE\OLED -I ..\HARDWARE\TIMER -I ..\HARDWARE\BUZZ -I ..\HARDWARE\control -I ..\HARDWARE\datatype -I ..\HARDWARE\display-I.\RTE\_Template-ID:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-ID:\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\oled.o --omf_browse ..\obj\oled.crf --depend ..\obj\oled.d)
+F (..\HARDWARE\OLED\oled.c)(0x5E1065F0)(--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork -I ..\USER -I ..\CORE -I ..\STM32F10x_FWLib\inc -I ..\SYSTEM\delay -I ..\SYSTEM\sys -I ..\SYSTEM\usart -I ..\HARDWARE\MPU6050\eMPL -I ..\HARDWARE\MPU6050 -I ..\HARDWARE\ADC -I ..\HARDWARE\KEY -I ..\HARDWARE\OLED -I ..\HARDWARE\TIMER -I ..\HARDWARE\BUZZ -I ..\HARDWARE\control -I ..\HARDWARE\datatype -I ..\HARDWARE\display-I.\RTE\_Template-ID:\MDK5\ARM\PACK\Keil\STM32F1xx_DFP\1.0.5\Device\Include-ID:\MDK5\ARM\CMSIS\Include-D__UVISION_VERSION="526" -DSTM32F10X_HD -DSTM32F10X_HD -DUSE_STDPERIPH_DRIVER-o ..\obj\oled.o --omf_browse ..\obj\oled.crf --depend ..\obj\oled.d)
 I (..\HARDWARE\OLED\oled.h)(0x5E0C4FDD)
 I (..\SYSTEM\sys\sys.h)(0x550F951B)
 I (..\USER\stm32f10x.h)(0x4D783CB4)

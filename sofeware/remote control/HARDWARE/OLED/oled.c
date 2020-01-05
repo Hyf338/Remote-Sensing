@@ -241,14 +241,14 @@ void Boot_Animation(void)
 				y = 64-x;
 				OLED_DrawPoint(64-0.7*y,y,1);
 				OLED_DrawPoint(64+0.7*y,y,1);
-				delay_ms(20);
+				delay_ms(10);
 			  OLED_Refresh_Gram();//更新显示到OLED
 		}
 		
 		for(x = 30;x <= 94;x++){
 				OLED_DrawPoint(125-x,47,1);
 				OLED_DrawPoint(x,18,1);
-				delay_ms(20);
+				delay_ms(10);
 				OLED_Refresh_Gram();//更新显示到OLED
 		}
 
