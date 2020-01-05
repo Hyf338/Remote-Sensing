@@ -60,14 +60,14 @@ void angle_mode(void)
 		motor.motor1 =0;
 		motor.motor3 =4999-left_offset+angle.pitch*normal_coe+angle.yaw*spin_coe;
 	}
-	else  if(angle.yaw > 2)
+	else  if(angle.yaw > 3)
 	{
 		motor.motor1 =angle.pitch*spin_coe;
 		motor.motor3 =right_offset+angle.pitch*normal_coe;
 		motor.motor2 =0;
 		motor.motor4 =4999;
 	}
-	else if(angle.yaw < -2)
+	else if(angle.yaw < -3)
 	{
 		motor.motor1 =left_offset+angle.pitch*normal_coe;
 		motor.motor3 =angle.pitch*spin_coe;
