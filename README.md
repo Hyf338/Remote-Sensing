@@ -7,7 +7,7 @@
 </p>
 
 ****
-[软件说明](/software)
+[软件说明](https://github.com/Hyf338/Remote-Sensing/tree/master/hardware)
 
 
 ## Title
