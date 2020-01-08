@@ -7,8 +7,9 @@
 </p>
 
 ****
-[软件说明](https://github.com/Hyf338/Remote-Sensing/tree/master/hardware)
-
+[软件说明](https://github.com/Hyf338/Remote-Sensing/blob/master/sofeware/software.md)
+[硬件说明](https://github.com/Hyf338/Remote-Sensing/blob/master/hardware/software..md)
+[姿态解算](https://github.com/Hyf338/Remote-Sensing/blob/master/Docs/姿态解算.md)
 
 ## Title
 2019集大电协 基于MPU6050的体感遥控车
@@ -17,6 +18,7 @@
 在玩具制造业中，遥控手柄控制的玩具车占有很大比重。但是**传统的按键手柄控制方式已经很难吸引大众的眼球**。故本项目研究基于陀螺仪的手势遥感车，**它能够完整地监测游戏者手的位移和旋转**，利用玩家的手势姿态来替代繁琐的按键操作，从而实现各种游戏的操作效果。系统的目的是，利用陀螺仪进行角度检测，改善繁琐的按键控制方式，改变传统遥控方式。
 
 ## Introduction
+
 
 ## 系统功能框图
 ![遥控器流程图]("\Docs\Flow_chart\遥感车系统功能框图.jpg")
@@ -65,6 +67,7 @@ SPI  | oled
 ![手持遥控器](/Docs/Pictures/Remoted-3D.png "手持遥控器")
 
 - [x] 手持遥控器实物
+
 ![遥控器](/Docs/Pictures/Remote.jpg "遥控器")
 
 
