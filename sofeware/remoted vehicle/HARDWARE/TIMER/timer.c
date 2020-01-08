@@ -80,6 +80,8 @@ void TIM1_Int_Init(u16 arr,u16 psc)
 //	
 	TIM_Cmd(TIM1, ENABLE);  //Ê¹ÄÜTIM1
 	
+	
+	
 }
 
 
