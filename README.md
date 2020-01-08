@@ -8,8 +8,8 @@
 
 ****
 <p align="center">
-  <a href="./software/README.md">软件说明|</a>
-  <a href="./hardware/README.md">硬件说明|</a>
+  <a href="./software">软件说明|</a>
+  <a href="./hardware">硬件说明|</a>
   <a href="./Docs/姿态相关参考文档">姿态解算|</a>
 </p>
 
