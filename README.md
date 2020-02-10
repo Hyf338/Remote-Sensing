@@ -7,7 +7,7 @@
 </p>
 
 ****
-[软件说明](https://github.com/Hyf338/Remote-Sensing/blob/master/sofeware/software.md)
+[软件说明:speech_balloon:](https://github.com/Hyf338/Remote-Sensing/blob/master/sofeware/software.md)
 [硬件说明](https://github.com/Hyf338/Remote-Sensing/blob/master/hardware/software..md)
 [姿态解算](https://github.com/Hyf338/Remote-Sensing/blob/master/Docs/姿态解算.md)
 
